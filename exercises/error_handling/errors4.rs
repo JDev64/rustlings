@@ -3,7 +3,6 @@
 // Execute `rustlings hint errors4` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
 #[derive(PartialEq, Debug)]
 struct PositiveNonzeroInteger(u64);
@@ -18,11 +17,12 @@ impl PositiveNonzeroInteger {
     fn new(value: i64) -> Result<PositiveNonzeroInteger, CreationError> {
         // Hmm...? Why is this only returning an Ok value?
         let positiveNonzeroInteger = PositiveNonzeroInteger(value as u64);
-
-        match positiveNonzeroInteger {
-            Ok(value) => Ok(value),
-            Err(err) => Err(CreationError)
+        if value == 0 {
+            return Err(CreationError::Zero);
+        } else if value < 0 {
+            return Err(CreationError::Negative);
         }
+        Ok(positiveNonzeroInteger)
     }
 }
 
